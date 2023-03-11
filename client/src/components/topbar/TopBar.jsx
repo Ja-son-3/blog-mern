@@ -1,7 +1,13 @@
+import { useContext } from "react"
+import { Context } from "../../context/Context"
 import "./topbar.css"
 
-export default function topbar() {
-  const user = false
+export default function Topbar() {
+  const {user, dispatch} = useContext(Context)
+
+  const handleLogout = () => {
+    dispatch({type:"LOGOUT"})
+  }
   return (
     
     <div className="top">
@@ -25,8 +31,8 @@ export default function topbar() {
             <li className="topListItem">
               <a className="link" href={`/write`}>WRITE</a>
             </li>
-            <li className="topListItem">
-              {user && "LOGOUT"}
+            <li className="topListItem" onClick={handleLogout}>
+              {user && "LOGOUT" }
             </li>
           </ul>
         </div>
@@ -34,7 +40,7 @@ export default function topbar() {
           {
             user ? (
               <a className="link" href={`/settings`}>
-                <img className="topImg" src="https://images.pexels.com/photos/428364/pexels-photo-428364.jpeg" alt="" />
+                <img className="topImg" src={user.profilePic} alt="" />
               </a>
             ) : (
               <ul className="topList">
